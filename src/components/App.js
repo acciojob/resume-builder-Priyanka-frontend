@@ -16,8 +16,7 @@ function App() {
     percentage: "",
   });
 
-  const [editingEducation, setEditingEducation] =
-    useState(null);
+  const [editingEducation, setEditingEducation] = useState(null);
 
   const [skill, setSkill] = useState("");
 
@@ -29,8 +28,7 @@ function App() {
     description: "",
   });
 
-  const [editingProject, setEditingProject] =
-    useState(null);
+  const [editingProject, setEditingProject] = useState(null);
 
   const [social, setSocial] = useState("");
 
@@ -219,26 +217,27 @@ function App() {
 
   // ---------------- NAVIGATION ----------------
 
-  const nextPage = () => {
-    if (page < 5) {
-      setPage(page + 1);
-    } else {
-      setPage(6);
-    }
+  const handleNext = (e) => {
+    e.preventDefault();
+    setPage((currentPage) => {
+      if (currentPage < 5) {
+        return currentPage + 1;
+      }
+      return currentPage;
+    });
   };
-
-  const previousPage = () => {
-    if (page > 1) {
-      setPage(page - 1);
-    }
+  const handleBack = (e) => {
+    e.preventDefault();
+    setPage((currentPage) => {
+      if (currentPage > 1) {
+        return currentPage - 1;
+      }
+      return currentPage;
+    });
   };
-
-  const saveAndContinue = () => {
-    if (page < 5) {
-      setPage(page + 1);
-    } else {
-      setPage(6);
-    }
+  const handleSaveContinue = (e) => {
+    e.preventDefault();
+    setPage(6);
   };
 
   // ---------------- FINAL RESUME ----------------
@@ -254,9 +253,7 @@ function App() {
           <p>{resume.profile.phone}</p>
           <p>{resume.profile.address}</p>
 
-          {resume.profile.url && (
-            <p>{resume.profile.url}</p>
-          )}
+          {resume.profile.url && <p>{resume.profile.url}</p>}
 
           <hr />
 
@@ -269,8 +266,7 @@ function App() {
                   <h3>{item.courseName}</h3>
                   <p>{item.college}</p>
                   <p>
-                    {item.completionYear} |{" "}
-                    {item.percentage}
+                    {item.completionYear} | {item.percentage}
                   </p>
                 </div>
               ))}
@@ -297,8 +293,7 @@ function App() {
                 <div key={index}>
                   <h3>{item.projectName}</h3>
                   <p>
-                    <strong>Technology:</strong>{" "}
-                    {item.techStack}
+                    <strong>Technology:</strong> {item.techStack}
                   </p>
                   <p>{item.description}</p>
                 </div>
@@ -316,9 +311,7 @@ function App() {
             </section>
           )}
 
-          <button onClick={() => setPage(5)}>
-            Back
-          </button>
+          <button onClick={() => setPage(5)}>Back</button>
         </div>
       </div>
     );
@@ -327,7 +320,6 @@ function App() {
   return (
     <div className="container">
       <div className="form-card">
-
         {/* PAGE 1 */}
 
         {page === 1 && (
@@ -405,13 +397,8 @@ function App() {
               onChange={handleEducationChange}
             />
 
-            <button
-              id="add_education"
-              onClick={addEducation}
-            >
-              {editingEducation !== null
-                ? "Update Education"
-                : "Add Education"}
+            <button id="add_education" onClick={addEducation}>
+              {editingEducation !== null ? "Update Education" : "Add Education"}
             </button>
 
             <div className="entries">
@@ -421,23 +408,13 @@ function App() {
                     <strong>{item.courseName}</strong>
                     <p>{item.college}</p>
                     <p>
-                      {item.completionYear} -{" "}
-                      {item.percentage}
+                      {item.completionYear} - {item.percentage}
                     </p>
                   </div>
 
-                  <button
-                    onClick={() => editEducation(index)}
-                  >
-                    Edit
-                  </button>
+                  <button onClick={() => editEducation(index)}>Edit</button>
 
-                  <button
-                    id="delete"
-                    onClick={() =>
-                      deleteEducation(index)
-                    }
-                  >
+                  <button id="delete" onClick={() => deleteEducation(index)}>
                     Delete
                   </button>
                 </div>
@@ -456,15 +433,11 @@ function App() {
               name="skill"
               placeholder="Enter Skill"
               value={skill}
-              onChange={(e) =>
-                setSkill(e.target.value)
-              }
+              onChange={(e) => setSkill(e.target.value)}
             />
 
             <button id="add_skill" onClick={addSkill}>
-              {editingSkill !== null
-                ? "Update Skill"
-                : "Add Skill"}
+              {editingSkill !== null ? "Update Skill" : "Add Skill"}
             </button>
 
             <div className="entries">
@@ -472,16 +445,9 @@ function App() {
                 <div className="entry" key={index}>
                   <span>{item}</span>
 
-                  <button
-                    onClick={() => editSkill(index)}
-                  >
-                    Edit
-                  </button>
+                  <button onClick={() => editSkill(index)}>Edit</button>
 
-                  <button
-                    id="delete_skill"
-                    onClick={() => deleteSkill(index)}
-                  >
+                  <button id="delete_skill" onClick={() => deleteSkill(index)}>
                     Delete
                   </button>
                 </div>
@@ -517,39 +483,23 @@ function App() {
               onChange={handleProjectChange}
             />
 
-            <button
-              id="add_project"
-              onClick={addProject}
-            >
-              {editingProject !== null
-                ? "Update Project"
-                : "Add Project"}
+            <button id="add_project" onClick={addProject}>
+              {editingProject !== null ? "Update Project" : "Add Project"}
             </button>
 
             <div className="entries">
               {resume.projects.map((item, index) => (
                 <div className="entry" key={index}>
                   <div>
-                    <strong>
-                      {item.projectName}
-                    </strong>
+                    <strong>{item.projectName}</strong>
 
                     <p>{item.techStack}</p>
                     <p>{item.description}</p>
                   </div>
 
-                  <button
-                    onClick={() => editProject(index)}
-                  >
-                    Edit
-                  </button>
+                  <button onClick={() => editProject(index)}>Edit</button>
 
-                  <button
-                    id="delete"
-                    onClick={() =>
-                      deleteProject(index)
-                    }
-                  >
+                  <button id="delete" onClick={() => deleteProject(index)}>
                     Delete
                   </button>
                 </div>
@@ -568,15 +518,11 @@ function App() {
               name="Social"
               placeholder="Social Media URL"
               value={social}
-              onChange={(e) =>
-                setSocial(e.target.value)
-              }
+              onChange={(e) => setSocial(e.target.value)}
             />
 
             <button id="add_social" onClick={addSocial}>
-              {editingSocial !== null
-                ? "Update Social"
-                : "Add Social"}
+              {editingSocial !== null ? "Update Social" : "Add Social"}
             </button>
 
             <div className="entries">
@@ -584,17 +530,9 @@ function App() {
                 <div className="entry" key={index}>
                   <span>{item}</span>
 
-                  <button
-                    onClick={() => editSocial(index)}
-                  >
-                    Edit
-                  </button>
+                  <button onClick={() => editSocial(index)}>Edit</button>
 
-                  <button
-                    onClick={() => deleteSocial(index)}
-                  >
-                    Delete
-                  </button>
+                  <button onClick={() => deleteSocial(index)}>Delete</button>
                 </div>
               ))}
             </div>
@@ -604,26 +542,29 @@ function App() {
         {/* NAVIGATION */}
 
         <div className="navigation">
-          {page > 1 && page < 6 && (
-            <button id="back" onClick={previousPage}>
-              Back
+          {" "}
+          {page > 1 && (
+            <button id="back" type="button" onClick={handleBack}>
+              {" "}
+              Back{" "}
             </button>
-          )}
-
+          )}{" "}
           {page < 5 && (
-            <button id="next" onClick={nextPage}>
-              Next
+            <button id="next" type="button" onClick={handleNext}>
+              {" "}
+              Next{" "}
             </button>
-          )}
-
+          )}{" "}
           {page === 5 && (
             <button
               id="save_continue"
-              onClick={saveAndContinue}
+              type="button"
+              onClick={handleSaveContinue}
             >
-              Save & Continue
+              {" "}
+              Save & Continue{" "}
             </button>
-          )}
+          )}{" "}
         </div>
       </div>
     </div>
@@ -631,4 +572,3 @@ function App() {
 }
 
 export default App;
-
