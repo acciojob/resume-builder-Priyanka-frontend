@@ -1,1 +1,131 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f3f4f6;
+  color: #222;
+}
+
+.container {
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.form-card,
+.resume {
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+h2 {
+  margin-top: 25px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+}
+
+input,
+textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 15px;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+button {
+  padding: 10px 18px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  background: #333;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+}
+
+.entries {
+  margin-top: 20px;
+}
+
+.entry {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.entry > div {
+  flex: 1;
+}
+
+.entry p {
+  margin: 5px 0;
+}
+
+.resume {
+  line-height: 1.6;
+}
+
+.resume > h1 {
+  font-size: 32px;
+}
+
+.resume section {
+  margin-top: 25px;
+}
+
+.resume li {
+  margin-bottom: 8px;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 20px 10px;
+  }
+
+  .form-card,
+  .resume {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .entry {
+    flex-wrap: wrap;
+  }
+}
+
 
