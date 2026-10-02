@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./../styles/App.css";
+import { saveResume, loadResume } from "../api/resumeApi";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,6 +34,55 @@ function App() {
   const [social, setSocial] = useState("");
 
   const [editingSocial, setEditingSocial] = useState(null);
+
+
+const handleSaveResume = async () => {
+  try {
+    const result = await saveResume(resume);
+
+    if (result.success) {
+      alert("Resume saved successfully");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Failed to save resume");
+  }
+};
+
+const handleLoadResume = async () => {
+  try {
+    const result = await loadResume();
+
+    if (!result) {
+      alert("No saved resume found");
+      return;
+    }
+
+    dispatch({
+      type: "LOAD_RESUME",
+      payload: {
+        profile: result.resume.profile || {
+          fname: "",
+          lname: "",
+          phone: "",
+          address: "",
+          url: "",
+        },
+        education: result.resume.education || [],
+        skills: result.resume.skills || [],
+        projects: result.resume.projects || [],
+        social: result.resume.social || [],
+      },
+    });
+
+    alert("Resume loaded successfully");
+  } catch (error) {
+    console.error(error);
+    alert("Failed to load resume");
+  }
+};
+
+
 
   const handleProfileChange = (e) => {
     dispatch({
@@ -235,8 +285,10 @@ function App() {
       return currentPage;
     });
   };
-  const handleSaveContinue = (e) => {
+  const handleSaveContinue = async(e) => {
     e.preventDefault();
+
+    await handleSaveResume();
     setPage(6);
   };
 
@@ -325,6 +377,13 @@ function App() {
         {page === 1 && (
           <>
             <h1>Profile</h1>
+
+            <button
+              type="button"
+              onClick={handleLoadResume}
+            >
+              Load Saved Resume
+            </button>
 
             <input
               name="fname"
